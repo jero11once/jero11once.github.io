@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showToast('Generando PDF...', 'Por favor espera unos segundos mientras preparamos tu hoja de vida.');
 
-    const candidateName = "Alejandro_Rivera";
+    const candidateName = "Jeronimo_Giraldo";
     const filename = `Curriculum_${candidateName}_Formato_${currentFormat.toUpperCase()}.pdf`;
 
     // Elemento a exportar según la vista activa
