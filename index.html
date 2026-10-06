@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curriculum Vitae Profesional | Formato ATS y Visual</title>
+  <!-- Google Fonts: Inter & JetBrains Mono para código/estilo moderno -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- html2pdf.js para descarga directa de PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- BARRA DE CONTROL SUPERIOR (No se imprime en el PDF) -->
+  <header class="app-toolbar no-print" id="toolbar">
+    <div class="toolbar-brand">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+      <div>
+        <h1 class="toolbar-title">CV Studio Pro</h1>
+        <p class="toolbar-subtitle">Optimizado para Reclutadores IT & ATS</p>
+      </div>
+    </div>
+
+    <!-- SELECTOR DE FORMATO -->
+    <div class="toolbar-controls">
+      <div class="format-switcher" role="group" aria-label="Selección de formato">
+        <button id="btn-format-visual" class="btn-toggle active" title="Diseño moderno con alta jerarquía visual">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="9" y1="21" x2="9" y2="9"></line>
+          </svg>
+          <span>Visual Impactante</span>
+        </button>
+        <button id="btn-format-ats" class="btn-toggle" title="Formato plano optimizado para sistemas de seguimiento de candidatos (ATS)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="8" y1="6" x2="21" y2="6"></line>
+            <line x1="8" y1="12" x2="21" y2="12"></line>
+            <line x1="8" y1="18" x2="21" y2="18"></line>
+            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+          </svg>
+          <span>Formato ATS Estándar</span>
+        </button>
+      </div>
+
+      <!-- TEMAS DE COLOR (Solo activo en modo visual) -->
+      <div class="color-picker-group" id="theme-group">
+        <span class="toolbar-label">Acento:</span>
+        <button class="color-dot active" data-color="blue" style="--dot-color: #2563eb;" title="Azul Corporativo"></button>
+        <button class="color-dot" data-color="emerald" style="--dot-color: #059669;" title="Verde Tech"></button>
+        <button class="color-dot" data-color="purple" style="--dot-color: #7c3aed;" title="Púrpura Moderno"></button>
+        <button class="color-dot" data-color="slate" style="--dot-color: #334155;" title="Gris Ejecutivo"></button>
+      </div>
+
+      <!-- MODO EDICIÓN RÁPIDA -->
+      <button id="btn-edit-toggle" class="btn-secondary" title="Haz clic en cualquier texto para personalizar con tus propios datos">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 20h9"></path>
+          <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+        </svg>
+        <span id="edit-text">Modo Edición</span>
+      </button>
+
+      <!-- BOTONES DE DESCARGA -->
+      <div class="download-group">
+        <button id="btn-download-pdf" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>Descargar PDF</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER INFORMATIVO SEGÚN FORMATO -->
+  <div class="format-badge-banner no-print">
+    <div class="banner-inner container" id="banner-description">
+      <!-- Se actualiza por JS -->
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL DEL CV -->
+  <main class="cv-viewport">
+    <div id="cv-document" class="cv-sheet theme-blue format-visual">
+
+      <!-- ========================================== -->
+      <!-- VISTA 1: DISEÑO VISUAL MODERNO E IMPACTANTE -->
+      <!-- ========================================== -->
+      <section class="cv-content-visual" id="view-visual">
+        <!-- HEADER VISUAL -->
+        <header class="visual-header">
+          <div class="visual-header-left">
+            <div class="avatar-box">
+              <span class="avatar-initials">AR</span>
+              <span class="status-indicator" title="Disponible para contratación"></span>
+            </div>
+            <div class="visual-titles">
+              <h1 class="candidate-name" contenteditable="false">Alejandro Rivera Gómez</h1>
+              <p class="candidate-role" contenteditable="false">Senior Full Stack Software Engineer | Cloud & Microservices</p>
+              <div class="candidate-meta">
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  <span contenteditable="false">Bogotá, Colombia (Remoto / Híbrido)</span>
+                </span>
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                  <a href="mailto:alejandro.rivera.dev@email.com" contenteditable="false">alejandro.rivera.dev@email.com</a>
+                </span>
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span contenteditable="false">+57 310 987 6543</span>
+                </span>
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                  <a href="https://linkedin.com/in/usuario-dev" target="_blank" contenteditable="false">linkedin.com/in/alex-rivera-dev</a>
+                </span>
+                <span class="meta-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                  <a href="https://github.com/usuario-dev" target="_blank" contenteditable="false">github.com/alexrivera-tech</a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- KPI BADGES RÁPIDOS -->
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-number">+6</span>
+              <span class="kpi-label">Años de Exp.</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-number">99.9%</span>
+              <span class="kpi-label">Uptime SaaS</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-number">-42%</span>
+              <span class="kpi-label">Latencia API</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- LAYOUT DE 2 COLUMNAS VISUAL -->
+        <div class="visual-body-grid">
+          <!-- COLUMNA PRINCIPAL (Izquierda - 68%) -->
+          <div class="visual-main-col">
+            <!-- PERFIL PROFESIONAL -->
+            <section class="section-block">
+              <h2 class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Perfil Profesional
+              </h2>
+              <p class="profile-text" contenteditable="false">
+                Ingeniero de Software Full Stack con más de <strong>6 años de experiencia</strong> diseñando, construyendo y desplegando aplicaciones web distribuidas de alto rendimiento, microservicios resilientes y plataformas cloud nativas. Especializado en el ecosistema <strong>TypeScript, React, Node.js, Python y AWS</strong>. Experiencia demostrada liderando equipos técnicos bajo metodologías Agile/Scrum, optimizando rendimiento de sistemas a gran escala y reduciendo costos de infraestructura en entornos SaaS B2B.
+              </p>
+            </section>
+
+            <!-- EXPERIENCIA LABORAL -->
+            <section class="section-block">
+              <h2 class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+                Experiencia Laboral
+              </h2>
+
+              <!-- Puesto 1 -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                  <div>
+                    <h3 class="job-title" contenteditable="false">Senior Full Stack Developer / Tech Lead</h3>
+                    <div class="job-company" contenteditable="false">TechNova Solutions — Remoto</div>
+                  </div>
+                  <span class="job-period" contenteditable="false">Marzo 2022 — Presente</span>
+                </div>
+                <ul class="job-bullets" contenteditable="false">
+                  <li>Lideró la migración de un monolito heredado hacia una <strong>arquitectura de microservicios con Node.js, Docker y AWS ECS</strong>, reduciendo los tiempos de respuesta del API en un <strong>42%</strong> para más de 1.4 millones de usuarios activos mensuales.</li>
+                  <li>Dirigió un equipo ágil de 6 ingenieros frontend y backend, estableciendo estándares de código, revisiones de Pull Requests y CI/CD con GitHub Actions, logrando despliegues continuos sin tiempo de inactividad (zero-downtime).</li>
+                  <li>Desarrolló paneles analíticos en tiempo real con <strong>React 18, Next.js y Tailwind CSS</strong>, mejorando las métricas de Core Web Vitals en un <strong>35%</strong> e impulsando la retención de usuarios en un <strong>18%</strong>.</li>
+                  <li>Implementó caché distribuido de alto rendimiento con <strong>Redis</strong> y optimizó consultas en <strong>PostgreSQL</strong>, reduciendo la carga del servidor en picos de tráfico en un <strong>50%</strong>.</li>
+                </ul>
+                <div class="job-tags">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Next.js</span>
+                  <span class="tech-tag">TypeScript</span>
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">AWS (ECS, S3, RDS)</span>
+                  <span class="tech-tag">Docker</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                  <span class="tech-tag">Redis</span>
+                </div>
+              </div>
+
+              <!-- Puesto 2 -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                  <div>
+                    <h3 class="job-title" contenteditable="false">Full Stack Software Developer</h3>
+                    <div class="job-company" contenteditable="false">CloudSphere Innovations — Bogotá, Colombia</div>
+                  </div>
+                  <span class="job-period" contenteditable="false">Enero 2020 — Febrero 2022</span>
+                </div>
+                <ul class="job-bullets" contenteditable="false">
+                  <li>Diseñó e integró APIs RESTful y servicios GraphQL seguros con <strong>Python (FastAPI) y Node.js</strong>, integrando pasarelas de pago (Stripe) y autenticación robusta mediante OAuth2/JWT.</li>
+                  <li>Construyó interfaces interactivas con <strong>Vue.js / React y Redux Toolkit</strong>, asegurando accesibilidad web (WCAG 2.1 AA) y soporte responsive para múltiples dispositivos.</li>
+                  <li>Automatizó pruebas unitarias y de integración utilizando <strong>Jest, React Testing Library y PyTest</strong>, elevando la cobertura de pruebas del 52% al <strong>89%</strong>.</li>
+                  <li>Alineó requisitos con stakeholders de producto y diseñadores UX/UI en sprints bisemanales Scrum, entregando el 100% de las funcionalidades a tiempo.</li>
+                </ul>
+                <div class="job-tags">
+                  <span class="tech-tag">Python (FastAPI)</span>
+                  <span class="tech-tag">JavaScript / React</span>
+                  <span class="tech-tag">GraphQL</span>
+                  <span class="tech-tag">MongoDB</span>
+                  <span class="tech-tag">Jest</span>
+                  <span class="tech-tag">CI/CD</span>
+                </div>
+              </div>
+
+              <!-- Puesto 3 -->
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                  <div>
+                    <h3 class="job-title" contenteditable="false">Junior Web Developer</h3>
+                    <div class="job-company" contenteditable="false">ByteForge Labs — Bogotá, Colombia</div>
+                  </div>
+                  <span class="job-period" contenteditable="false">Julio 2018 — Diciembre 2019</span>
+                </div>
+                <ul class="job-bullets" contenteditable="false">
+                  <li>Colaboró en la creación de aplicaciones web single-page (SPA) con JavaScript vanilla, React y Bootstrap.</li>
+                  <li>Mantuvo y optimizó endpoints backend en Express.js y bases de datos MySQL, resolviendo más de 120 tickets de bugs y optimizaciones en producción.</li>
+                  <li>Participó activamente en ceremonias Scrum, retrospectivas y sesiones de pair programming.</li>
+                </ul>
+              </div>
+            </section>
+
+            <!-- PROYECTOS DESTACADOS -->
+            <section class="section-block">
+              <h2 class="section-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                Proyectos Destacados de Alto Impacto
+              </h2>
+              <div class="projects-grid">
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4 class="project-name" contenteditable="false">DevPulse — Telemetry & APM Monitor</h4>
+                    <span class="project-badge">Open Source (+900 Stars)</span>
+                  </div>
+                  <p class="project-desc" contenteditable="false">Herramienta open-source de observabilidad en tiempo real para microservicios. Construida con Go, React y TimescaleDB, procesando más de 50k eventos por segundo con mínima huella de memoria.</p>
+                  <p class="project-tech"><strong>Stack:</strong> Go, React, WebSocket, TimescaleDB, Docker</p>
+                </div>
+                <div class="project-card">
+                  <div class="project-header">
+                    <h4 class="project-name" contenteditable="false">SmartInventory AI — SaaS B2B</h4>
+                    <span class="project-badge">Comercial</span>
+                  </div>
+                  <p class="project-desc" contenteditable="false">Plataforma SaaS predictiva de control de stock y demanda para empresas de retail. Integró modelos predictivos con backend en FastAPI y frontend en Next.js con Server Actions.</p>
+                  <p class="project-tech"><strong>Stack:</strong> Next.js, TypeScript, FastAPI, PostgreSQL, AWS Lambda</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- BARRA LATERAL (Derecha - 32%) -->
+          <aside class="visual-side-col">
+            <!-- HABILIDADES TÉCNICAS (Categorizadas) -->
+            <section class="side-block">
+              <h3 class="side-title">Habilidades Técnicas</h3>
+              
+              <div class="skill-category">
+                <span class="skill-cat-title">Lenguajes de Programación</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">TypeScript</span>
+                  <span class="skill-pill">JavaScript (ES6+)</span>
+                  <span class="skill-pill">Python</span>
+                  <span class="skill-pill">Go (Golang)</span>
+                  <span class="skill-pill">SQL</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <span class="skill-cat-title">Frontend</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">React 18</span>
+                  <span class="skill-pill">Next.js (App Router)</span>
+                  <span class="skill-pill">Vue.js</span>
+                  <span class="skill-pill">Tailwind CSS</span>
+                  <span class="skill-pill">HTML5 / Semantic CSS</span>
+                  <span class="skill-pill">Redux Toolkit</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <span class="skill-cat-title">Backend & APIs</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">Node.js</span>
+                  <span class="skill-pill">Express.js</span>
+                  <span class="skill-pill">FastAPI</span>
+                  <span class="skill-pill">NestJS</span>
+                  <span class="skill-pill">RESTful APIs</span>
+                  <span class="skill-pill">GraphQL</span>
+                  <span class="skill-pill">Microservicios</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <span class="skill-cat-title">Cloud & DevOps</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">AWS (ECS, S3, RDS, Lambda)</span>
+                  <span class="skill-pill">Docker & Compose</span>
+                  <span class="skill-pill">CI/CD (GitHub Actions)</span>
+                  <span class="skill-pill">Kubernetes Basics</span>
+                  <span class="skill-pill">Linux / Bash</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <span class="skill-cat-title">Bases de Datos & Caché</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">PostgreSQL</span>
+                  <span class="skill-pill">MongoDB</span>
+                  <span class="skill-pill">Redis</span>
+                  <span class="skill-pill">MySQL</span>
+                </div>
+              </div>
+
+              <div class="skill-category">
+                <span class="skill-cat-title">Testing & Metodologías</span>
+                <div class="skill-pill-list">
+                  <span class="skill-pill">Jest / Vitest</span>
+                  <span class="skill-pill">React Testing Library</span>
+                  <span class="skill-pill">Scrum / Agile</span>
+                  <span class="skill-pill">Git / GitFlow</span>
+                  <span class="skill-pill">Clean Architecture</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- EDUCACIÓN -->
+            <section class="side-block">
+              <h3 class="side-title">Educación</h3>
+              <div class="edu-item">
+                <h4 class="edu-degree" contenteditable="false">Grado en Ingeniería de Sistemas e Informática</h4>
+                <div class="edu-school" contenteditable="false">Universidad Nacional</div>
+                <div class="edu-year" contenteditable="false">2014 — 2018 | Graduado con Honores</div>
+              </div>
+            </section>
+
+            <!-- CERTIFICACIONES RELEVANTES -->
+            <section class="side-block">
+              <h3 class="side-title">Certificaciones</h3>
+              <ul class="cert-list">
+                <li class="cert-item" contenteditable="false">
+                  <strong>AWS Certified Solutions Architect – Associate</strong>
+                  <span class="cert-meta">Amazon Web Services • 2023</span>
+                </li>
+                <li class="cert-item" contenteditable="false">
+                  <strong>Meta Front-End Developer Professional Certificate</strong>
+                  <span class="cert-meta">Meta / Coursera • 2022</span>
+                </li>
+                <li class="cert-item" contenteditable="false">
+                  <strong>Docker & Kubernetes Certified Specialist</strong>
+                  <span class="cert-meta">Linux Foundation • 2021</span>
+                </li>
+              </ul>
+            </section>
+
+            <!-- IDIOMAS -->
+            <section class="side-block">
+              <h3 class="side-title">Idiomas</h3>
+              <div class="lang-row">
+                <span class="lang-name" contenteditable="false">Español</span>
+                <span class="lang-level" contenteditable="false">Nativo</span>
+              </div>
+              <div class="lang-bar"><div class="lang-fill" style="width: 100%;"></div></div>
+
+              <div class="lang-row" style="margin-top: 10px;">
+                <span class="lang-name" contenteditable="false">Inglés</span>
+                <span class="lang-level" contenteditable="false">C1 Profesional Avanzado (Fluido)</span>
+              </div>
+              <div class="lang-bar"><div class="lang-fill" style="width: 90%;"></div></div>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- VISTA 2: FORMATO ATS ESTÁNDAR Y AMIGABLE  -->
+      <!-- ========================================== -->
+      <section class="cv-content-ats" id="view-ats">
+        <!-- HEADER ATS: Texto plano, jerárquico, sin iconos gráficos complejos ni columnas que confundan el parser -->
+        <header class="ats-header">
+          <h1 class="ats-name" contenteditable="false">ALEJANDRO RIVERA GÓMEZ</h1>
+          <p class="ats-subtitle" contenteditable="false">Senior Full Stack Software Engineer</p>
+          <div class="ats-contact-line" contenteditable="false">
+            Bogotá, Colombia • +57 310 987 6543 • alejandro.rivera.dev@email.com • linkedin.com/in/alex-rivera-dev • github.com/alexrivera-tech
+          </div>
+        </header>
+
+        <!-- RESUMEN PROFESIONAL ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">RESUMEN PROFESIONAL</h2>
+          <p class="ats-text" contenteditable="false">
+            Ingeniero de Software Full Stack con más de 6 años de experiencia comprobada en diseño, desarrollo y escalabilidad de aplicaciones web de alto rendimiento, microservicios y plataformas cloud en entornos de ritmo acelerado. Experto en el ecosistema TypeScript, React, Node.js, Python (FastAPI) y servicios en la nube de Amazon Web Services (AWS). Historial demostrado en optimización de rendimiento de bases de datos PostgreSQL/Redis, reducción de latencia en un 42% y liderazgo de equipos de desarrollo bajo metodologías Agile y Scrum. Enfoque riguroso en calidad de software mediante pruebas automatizadas (TDD) y despliegues continuos (CI/CD).
+          </p>
+        </section>
+
+        <!-- COMPETENCIAS TÉCNICAS ATS (Palabras clave exactas para match de ATS) -->
+        <section class="ats-section">
+          <h2 class="ats-heading">HABILIDADES TÉCNICAS</h2>
+          <div class="ats-skills-list" contenteditable="false">
+            <p><strong>Lenguajes de Programación:</strong> TypeScript, JavaScript (ES6+), Python, Go (Golang), SQL, HTML5, CSS3</p>
+            <p><strong>Desarrollo Frontend:</strong> React.js, Next.js, Redux Toolkit, Vue.js, Tailwind CSS, Webpack, Vite, Responsive Web Design</p>
+            <p><strong>Desarrollo Backend:</strong> Node.js, Express.js, FastAPI, NestJS, Arquitectura de Microservicios, RESTful APIs, GraphQL</p>
+            <p><strong>Cloud, DevOps e Infraestructura:</strong> Amazon Web Services (AWS ECS, S3, RDS, Lambda, EC2), Docker, Docker Compose, CI/CD (GitHub Actions), Kubernetes, Linux/Bash</p>
+            <p><strong>Bases de Datos y Almacenamiento:</strong> PostgreSQL, MongoDB, Redis, MySQL, ORMs (Prisma, SQLAlchemy, Mongoose)</p>
+            <p><strong>Testing y Calidad de Código:</strong> Jest, React Testing Library, PyTest, Cypress, TDD, Clean Code, Clean Architecture</p>
+            <p><strong>Herramientas y Metodologías:</strong> Git, GitHub, GitLab, Scrum, Agile, Jira, Postman, Figma</p>
+          </div>
+        </section>
+
+        <!-- EXPERIENCIA LABORAL ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">EXPERIENCIA LABORAL</h2>
+
+          <!-- Puesto 1 -->
+          <div class="ats-job">
+            <div class="ats-job-header">
+              <span class="ats-job-title" contenteditable="false">Senior Full Stack Developer / Tech Lead</span>
+              <span class="ats-job-dates" contenteditable="false">Marzo 2022 – Presente</span>
+            </div>
+            <div class="ats-job-company" contenteditable="false">TechNova Solutions | Remoto (Colombia)</div>
+            <ul class="ats-bullets" contenteditable="false">
+              <li>Lideró la migración de un sistema monolítico heredado hacia una arquitectura moderna de microservicios con Node.js, Docker y AWS ECS, reduciendo los tiempos de respuesta del API en un 42% para más de 1.4 millones de usuarios activos.</li>
+              <li>Dirigió técnicamente un equipo multidisciplinario de 6 ingenieros, implementando revisiones rigurosas de código, directrices de arquitectura limpia y tuberías de CI/CD automatizadas con GitHub Actions para despliegues diarios con cero tiempo de inactividad (zero downtime).</li>
+              <li>Diseñó e implementó módulos de frontend en tiempo real utilizando Next.js (App Router), React y Tailwind CSS, incrementando los puntajes de rendimiento en Google Core Web Vitals en un 35% y aumentando las conversiones en un 18%.</li>
+              <li>Optimizó el rendimiento de bases de datos PostgreSQL mediante indexación estratégica y capas de almacenamiento en caché distribuido con Redis, mitigando picos de carga en el servidor en un 50%.</li>
+            </ul>
+          </div>
+
+          <!-- Puesto 2 -->
+          <div class="ats-job">
+            <div class="ats-job-header">
+              <span class="ats-job-title" contenteditable="false">Full Stack Software Developer</span>
+              <span class="ats-job-dates" contenteditable="false">Enero 2020 – Febrero 2022</span>
+            </div>
+            <div class="ats-job-company" contenteditable="false">CloudSphere Innovations | Bogotá, Colombia</div>
+            <ul class="ats-bullets" contenteditable="false">
+              <li>Desarrolló APIs RESTful robustas y escalables con Python (FastAPI) y Node.js, integrando autenticación segura mediante JWT, OAuth2 y cumplimiento de normativas de seguridad de datos.</li>
+              <li>Construyó interfaces dinámicas y accesibles utilizando React, Vue.js y Redux Toolkit, asegurando total compatibilidad cross-browser y accesibilidad bajo estándares WCAG 2.1 AA.</li>
+              <li>Estableció un plan integral de testing automatizado con Jest, React Testing Library y PyTest, elevando la cobertura de pruebas de software del 52% al 89%.</li>
+              <li>Colaboró activamente en equipos ágiles bajo marco Scrum, participando en estimaciones de sprints, planificación y demos con clientes internacionales.</li>
+            </ul>
+          </div>
+
+          <!-- Puesto 3 -->
+          <div class="ats-job">
+            <div class="ats-job-header">
+              <span class="ats-job-title" contenteditable="false">Junior Web Developer</span>
+              <span class="ats-job-dates" contenteditable="false">Julio 2018 – Diciembre 2019</span>
+            </div>
+            <div class="ats-job-company" contenteditable="false">ByteForge Labs | Bogotá, Colombia</div>
+            <ul class="ats-bullets" contenteditable="false">
+              <li>Desarrolló componentes web reutilizables utilizando JavaScript vanilla (ES6+), React y HTML5/CSS3.</li>
+              <li>Mantuvo servicios backend con Node.js/Express y bases de datos relacionales MySQL, resolviendo más de 120 incidencias y optimizando consultas críticas.</li>
+              <li>Implementó control de versiones con Git y flujos de trabajo colaborativos en GitHub.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- PROYECTOS DESTACADOS ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">PROYECTOS TÉCNICOS DESTACADOS</h2>
+          <div class="ats-project" contenteditable="false">
+            <p><strong>DevPulse — Sistema de Monitoreo y Telemetría APM (Open Source, +900 estrellas en GitHub)</strong></p>
+            <p>Herramienta distribuida para análisis de métricas en microservicios en tiempo real. Desarrollada en Go, React, WebSockets y TimescaleDB con capacidad de ingesta de 50,000 eventos por segundo.</p>
+          </div>
+          <div class="ats-project" contenteditable="false">
+            <p><strong>SmartInventory AI — Plataforma SaaS B2B</strong></p>
+            <p>Plataforma para optimización logística y predicción de stock mediante algoritmos de regresión. Construida con Next.js, TypeScript, FastAPI, PostgreSQL y desplegada en AWS Lambda.</p>
+          </div>
+        </section>
+
+        <!-- EDUCACIÓN ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">EDUCACIÓN</h2>
+          <div class="ats-job-header">
+            <span class="ats-job-title" contenteditable="false">Ingeniería de Sistemas e Informática</span>
+            <span class="ats-job-dates" contenteditable="false">2014 – 2018</span>
+          </div>
+          <div class="ats-job-company" contenteditable="false">Universidad Nacional de Colombia | Graduado con Honores</div>
+        </section>
+
+        <!-- CERTIFICACIONES ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">CERTIFICACIONES</h2>
+          <ul class="ats-bullets-simple" contenteditable="false">
+            <li><strong>AWS Certified Solutions Architect – Associate</strong> — Amazon Web Services (2023)</li>
+            <li><strong>Meta Front-End Developer Professional Certificate</strong> — Meta / Coursera (2022)</li>
+            <li><strong>Docker & Kubernetes Certified Specialist</strong> — The Linux Foundation (2021)</li>
+          </ul>
+        </section>
+
+        <!-- IDIOMAS ATS -->
+        <section class="ats-section">
+          <h2 class="ats-heading">IDIOMAS</h2>
+          <p class="ats-text" contenteditable="false">
+            <strong>Español:</strong> Nativo • <strong>Inglés:</strong> C1 Avanzado / Fluidez Profesional Completa (conversación técnica y de negocios).
+          </p>
+        </section>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL / TOAST DE NOTIFICACIÓN DE DESCARGA -->
+  <div id="toast" class="toast-notification" aria-live="polite">
+    <div class="toast-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </div>
+    <div class="toast-content">
+      <h5 id="toast-title">Generando PDF</h5>
+      <p id="toast-msg">Preparando documento con alta resolución...</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1057 @@
+/* ==========================================================================
+   CV STUDIO PRO - ESTILOS COMPLETOS (VISUAL & FORMATO ATS)
+   Diseñado por experto reclutador IT y desarrollador frontend
+   ========================================================================== */
+
+:root {
+  /* Paleta Base */
+  --bg-app: #f1f5f9;
+  --text-main: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --border-subtle: #cbd5e1;
+
+  /* Tema Activo (Por defecto: Azul Corporativo) */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #dbeafe;
+  --primary-rgb: 37, 99, 235;
+
+  /* Formato ATS Estricto */
+  --ats-font: "Inter", "Calibri", "Arial", sans-serif;
+  --ats-text: #111827;
+  --ats-line: #374151;
+
+  /* Dimensiones Hoja A4 */
+  --sheet-max-width: 900px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 10px;
+  --border-radius-lg: 16px;
+  --shadow-sheet: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --transition: all 0.2s ease-in-out;
+}
+
+/* Temas de color dinámicos para modo visual */
+.theme-blue {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-rgb: 37, 99, 235;
+}
+
+.theme-emerald {
+  --primary: #059669;
+  --primary-dark: #047857;
+  --primary-light: #ecfdf5;
+  --primary-rgb: 5, 150, 105;
+}
+
+.theme-purple {
+  --primary: #7c3aed;
+  --primary-dark: #6d28d9;
+  --primary-light: #f5f3ff;
+  --primary-rgb: 124, 58, 237;
+}
+
+.theme-slate {
+  --primary: #334155;
+  --primary-dark: #1e293b;
+  --primary-light: #f8fafc;
+  --primary-rgb: 51, 65, 85;
+}
+
+/* Reset y caja */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   1. BARRA DE HERRAMIENTAS (TOOLBAR)
+   ========================================================================== */
+.app-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-icon {
+  background: var(--primary);
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(var(--primary-rgb), 0.25);
+  transition: var(--transition);
+}
+
+.toolbar-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.toolbar-subtitle {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.toolbar-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* Switcher de Formato */
+.format-switcher {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-light);
+}
+
+.btn-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  padding: 7px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-toggle:hover {
+  color: var(--text-main);
+}
+
+.btn-toggle.active {
+  background: #ffffff;
+  color: var(--primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Color Picker */
+.color-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-light);
+}
+
+.toolbar-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-right: 4px;
+}
+
+.color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-color: var(--dot-color);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.color-dot:hover {
+  transform: scale(1.15);
+}
+
+.color-dot.active {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 2px #fff inset;
+}
+
+/* Botones Primarios y Secundarios */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(var(--primary-rgb), 0.3);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #ffffff;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  padding: 8px 14px;
+  border-radius: var(--border-radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+
+.btn-secondary.editing-active {
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+/* ==========================================================================
+   2. BANNER EXPLICATIVO SEGÚN FORMATO
+   ========================================================================== */
+.format-badge-banner {
+  background: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  padding: 10px 24px;
+  font-size: 0.85rem;
+}
+
+.banner-inner {
+  max-width: var(--sheet-max-width);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.banner-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.banner-tag.visual {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.banner-tag.ats {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.banner-desc {
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+/* ==========================================================================
+   3. CONTENEDOR Y HOJA PRINCIPAL
+   ========================================================================== */
+.cv-viewport {
+  padding: 32px 16px 64px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 120px);
+}
+
+.cv-sheet {
+  width: 100%;
+  max-width: var(--sheet-max-width);
+  background: #ffffff;
+  box-shadow: var(--shadow-sheet);
+  border-radius: var(--border-radius-md);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Control de visibilidad según formato */
+.format-visual #view-visual {
+  display: block;
+}
+.format-visual #view-ats {
+  display: none;
+}
+
+.format-ats #view-visual {
+  display: none;
+}
+.format-ats #view-ats {
+  display: block;
+}
+
+/* ==========================================================================
+   4. FORMATO VISUAL IMPACTANTE (MODERNO)
+   ========================================================================== */
+.cv-content-visual {
+  padding: 44px 48px;
+}
+
+/* Encabezado */
+.visual-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding-bottom: 28px;
+  border-bottom: 2px solid #f1f5f9;
+}
+
+.visual-header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.avatar-box {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 8px 16px -4px rgba(var(--primary-rgb), 0.35);
+}
+
+.avatar-initials {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+}
+
+.status-indicator {
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+  width: 18px;
+  height: 18px;
+  background: #10b981;
+  border: 3px solid #ffffff;
+  border-radius: 50%;
+}
+
+.candidate-name {
+  font-size: 1.95rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.candidate-role {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+.candidate-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.meta-item svg {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.meta-item a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.meta-item a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* KPI Badges */
+.kpi-grid {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.kpi-card {
+  background: var(--primary-light);
+  border: 1px solid rgba(var(--primary-rgb), 0.12);
+  padding: 8px 12px;
+  border-radius: var(--border-radius-sm);
+  text-align: center;
+  min-width: 76px;
+}
+
+.kpi-number {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Layout 2 Columnas */
+.visual-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 36px;
+  margin-top: 28px;
+}
+
+/* Secciones & Títulos */
+.section-block {
+  margin-bottom: 26px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid #f1f5f9;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.section-title svg {
+  color: var(--primary);
+}
+
+.profile-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  text-align: justify;
+}
+
+/* Timeline Experiencia */
+.timeline-item {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid #e2e8f0;
+  margin-bottom: 22px;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -6px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.25);
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.job-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.job-company {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.job-period {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.job-bullets {
+  margin-top: 8px;
+  padding-left: 18px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.job-bullets li {
+  margin-bottom: 5px;
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 9px;
+}
+
+.tech-tag {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* Proyectos Destacados */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.project-card {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-left: 3px solid var(--primary);
+  padding: 12px 14px;
+  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.project-name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.project-badge {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-light);
+  padding: 1px 7px;
+  border-radius: 9999px;
+}
+
+.project-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+
+.project-tech {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Barra Lateral (Visual) */
+.visual-side-col {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.side-block {
+  background: #ffffff;
+}
+
+.side-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-main);
+  border-bottom: 1.5px solid #f1f5f9;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.skill-category {
+  margin-bottom: 12px;
+}
+
+.skill-cat-title {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 5px;
+}
+
+.skill-pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.skill-pill {
+  background: #f1f5f9;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-light);
+}
+
+.edu-degree {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.edu-school {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 2px;
+}
+
+.edu-year {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.cert-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cert-item {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--text-main);
+}
+
+.cert-meta {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.lang-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.lang-level {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.lang-bar {
+  height: 5px;
+  width: 100%;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.lang-fill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 9999px;
+}
+
+/* ==========================================================================
+   5. FORMATO ATS ESTÁNDAR Y OPTIMIZADO
+   Reglas ATS: 
+   - 1 columna limpia
+   - Encabezados estándar reconocibles (SUMMARY, SKILLS, EXPERIENCE, EDUCATION)
+   - Sin cajas complejas ni tablas gráficas anidadas
+   - Contraste puro para parsers OCR / texto plano
+   ========================================================================== */
+.cv-content-ats {
+  padding: 44px 50px;
+  font-family: var(--ats-font);
+  color: var(--ats-text);
+  line-height: 1.5;
+}
+
+.ats-header {
+  text-align: center;
+  border-bottom: 2px solid var(--ats-line);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.ats-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ats-subtitle {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 3px;
+}
+
+.ats-contact-line {
+  font-size: 0.83rem;
+  color: #374151;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.ats-section {
+  margin-bottom: 18px;
+}
+
+.ats-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #000000;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #9ca3af;
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+
+.ats-text {
+  font-size: 0.83rem;
+  color: #1f2937;
+  text-align: justify;
+  line-height: 1.55;
+}
+
+.ats-skills-list {
+  font-size: 0.82rem;
+  color: #1f2937;
+  line-height: 1.55;
+}
+
+.ats-skills-list p {
+  margin-bottom: 4px;
+}
+
+.ats-job {
+  margin-bottom: 14px;
+}
+
+.ats-job:last-child {
+  margin-bottom: 0;
+}
+
+.ats-job-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ats-job-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+.ats-job-dates {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.ats-job-company {
+  font-size: 0.84rem;
+  font-style: italic;
+  color: #374151;
+  margin-bottom: 5px;
+}
+
+.ats-bullets {
+  padding-left: 20px;
+  font-size: 0.82rem;
+  color: #1f2937;
+  line-height: 1.5;
+}
+
+.ats-bullets li {
+  margin-bottom: 4px;
+}
+
+.ats-bullets-simple {
+  padding-left: 20px;
+  font-size: 0.82rem;
+  color: #1f2937;
+}
+
+.ats-bullets-simple li {
+  margin-bottom: 4px;
+}
+
+.ats-project {
+  font-size: 0.82rem;
+  color: #1f2937;
+  margin-bottom: 8px;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   6. MODO EDICIÓN EN VIVO
+   ========================================================================== */
+[contenteditable="true"] {
+  outline: 2px dashed rgba(245, 158, 11, 0.6);
+  outline-offset: 3px;
+  background-color: rgba(254, 243, 199, 0.35);
+  border-radius: 3px;
+  transition: background-color 0.15s ease;
+}
+
+[contenteditable="true"]:focus {
+  outline: 2px solid #d97706;
+  background-color: rgba(254, 243, 199, 0.7);
+}
+
+/* ==========================================================================
+   7. TOAST NOTIFICATION
+   ========================================================================== */
+.toast-notification {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.25);
+  transform: translateY(120%);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+.toast-notification.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast-icon {
+  color: #10b981;
+}
+
+.toast-content h5 {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.toast-content p {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE DESIGN (TABLETS Y MÓVILES)
+   ========================================================================== */
+@media screen and (max-width: 860px) {
+  .visual-body-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .visual-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .kpi-grid {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .cv-content-visual, .cv-content-ats {
+    padding: 24px 20px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .app-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+  }
+
+  .toolbar-controls {
+    justify-content: stretch;
+    width: 100%;
+  }
+
+  .format-switcher {
+    width: 100%;
+    display: flex;
+  }
+
+  .btn-toggle {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 6px 10px;
+  }
+
+  .download-group {
+    width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   9. ESTILOS DE IMPRESIÓN Y EXPORTACIÓN PDF (@media print)
+   ========================================================================== */
+@media print {
+  /* Ocultar barra superior y avisos */
+  .no-print, .app-toolbar, .format-badge-banner, .toast-notification {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #000000 !important;
+  }
+
+  .cv-viewport {
+    padding: 0 !important;
+    min-height: auto !important;
+  }
+
+  .cv-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Evitar saltos de página dentro de bloques */
+  .timeline-item, .project-card, .ats-job, .ats-section, .side-block, .section-block {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Forzar renderizado de fondos y colores en navegadores */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm;
+  }
+}
+
